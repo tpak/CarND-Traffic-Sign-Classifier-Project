@@ -4,7 +4,7 @@ data
 models
 *.swp
 *.p
-lenet.*
+lenet*
 notes.txt
 scratch*
 checkpoint
