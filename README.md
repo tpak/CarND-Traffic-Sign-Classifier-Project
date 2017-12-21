@@ -136,11 +136,16 @@ Layer | Type 			| Description
 
 I played with placing dropouts at a variety of individual layers as well as multiple layers. It was interesting to see the accuracy plummet in some scenarios. I ended up settling on only one dropout at layer 4. I also played with the dropout rate and settled at 50%. This seemed to have some effect but not much in the 40-60% range. Above or below that and the accuracy dropped. 
 
-I was able to set up my model to save the most accurate version as it went along so that I could let it run longer without worry if the model degraded, which they often do. I chose to save the highest validation accuracy as my chosen method. Another approach might be to choose the model with the lowest Vaslidation Loss once the accuracy is adequate. 
+## Neural Network Training
+I was able to set up my model to save the most accurate version as it went along during training so that I could let it run longer without worry if the model degraded, which they often do. I chose to save the highest validation accuracy as my chosen method. Another approach might be to choose the model with the lowest Validation Loss once the accuracy is adequate. 
 
-You can see in the below graphs that over time the model appears to add loss - I'm not sure if this is considered a form of overfitting or not but I think that the model does get worse. In the run featured here my final model saved at iteration 60 with a validation accuracy rate of 98.23%. However as will be discussed below, that was not as accurate as a previous run with only 30 iterations and 97% validationa ccuracy when it came to both test data sets and data sets downloaded from the internet. These graphs clearly show that around iteration 15 the training loss  begins to steady and the validation loss begins to vary wildly and seperates from the training loss. I suspect this would be the best place to save the model - approximately iteration 15 which you can see in the table has validation accuracy of 96.24%. 
+You can see in the below graphs that over time the model appears to gain loss - I'm not sure if this is considered a form of overfitting or not but I think that the model does get worse. In the run featured here my final model saved at iteration 60 with a validation accuracy rate of 98.23%. However as will be discussed below, that was not as accurate as a previous run with only 30 iterations and 97% validationa ccuracy when it came to both test data sets and data sets downloaded from the internet. These graphs clearly show that around iteration 15 the training loss  begins to steady and the validation loss begins to vary wildly and seperates from the training loss. I suspect this would be the best place to save the model - approximately iteration 15 which you can see in the table has validation accuracy of 96.24%. 
 
-This model was 94.66% accurate against the test data set. 
+The submission describes how the model was trained by discussing what optimizer was used, batch size, number of epochs and values for hyperparameters.
+
+This model was trainied with the AdamOptimizer using the 30 Epochs of 256 images each, a learning rate of 0.0005 and dropout probability of 0.5. The batch size seems to work better with smaller batches on this model. However; I suspect that if I could ge the tensorflow learning rate decay functions working, a larger batch size would improve the model. 
+
+This particular version of the model was 94.66% accurate against the test data set. 
 
 ![][image6]
 ![][image7]
