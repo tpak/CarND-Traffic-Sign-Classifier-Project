@@ -26,8 +26,7 @@ A few random examples of the signs in the dataset are below. As you can see the 
 ## TL;DR
 * My model validation accuracy is repeatably in the 97-98% range.
 * My Jupyter notebook "Copy3" is my submitted [project code](
-https://github.com/tpak/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier-Copy3.ipynb)
-* My github repo for the entire project is [here](https://github.com/tpak/CarND-Traffic-Sign-Classifier-Project)
+https://github.com/tpak/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier-Copy3.ipynb) -- other notebooks are for personal reference purposes.
 
 I initially got a very simple LeNet based model up and running and as specified it quickly got up and into the 92% validation accuracy range but hit a wall. Simple image augmentation techniques did not want to get LeNet beyond 92% so I started exploring other augmentation techniques. My advisor pointed me to various resources and that is when I ran smack into python, scikit, and cv2 issues that sent me off on a wild goose chase for several days. After augmenting images by rotating, shearing (think of this as tilting the image at various angles), and transforming (moving the signs around randomly so they were not always in the middle of the frame) I was able to get the model up over 94%. That would have been good enough but I kept going now that I had a working foundation and played with adding dropout layers to my model. 
 
@@ -56,7 +55,6 @@ Things that I think would be good to explore more in the future:
 As you can see in the histograms and the table below we have a non-uniform distribution of signs in our data sets and each data set roughly approximates the other in terms of distributions. I chose not to augment the data to even this out becaus ethe real world is cruel place to operate in and will vary from day to day and location to location. In retrospect it may be beneficial to do so for training puposes so that the model can learn each type of sign at a deeper level.
 
 ![][image2]
-
 ![][image3]
 
 Count of each sign class
@@ -114,15 +112,16 @@ The supplied images are quite small - a mere 32x32 pixels. However; this is prob
 
 All augmentation and normalization was applied with a random normal disgtribution to try and re-create the randomness a car would encounter in the real world.
 
-After augmenting the data and normailizing the histograms I added the original training data set (no totation, etc just histogram adjustements) into the final training set bringing the number of images to 208,794. 
+After augmenting the data and normailizing the histograms I added the original training data set (no totation, etc just histogram adjustements) into the final training set bringing the number of images to 208,794.
 
 Examples of images with augmentation:
 ![][image5]
 
 Examples of images with augmentation and normalization applied:
 ![][image4]
+
 ---
-### Neural Network Model
+## Neural Network Model
 I used an almost pure derivative of the LeNet architecture. 
 
 Input 32x32x3 images
@@ -135,11 +134,11 @@ Layer | Type 			| Description
 4    | Fully Connected | Input = 120. Output = 84. Dropout@ 0.5
 5    | Fully Connected | Input = 84. Output = 43
 
-I played with placing dropout at a variety of individual layers as well as multiple layers. It was interesting to see the accuracy plummet in some scenarios. I ended up settling on only one dropout at layer 4. I also played with the dropout rate and settled at 50%. This seemed to have some effect but not much in the 40-60% range. Above or below that and the accuracy dropped. 
+I played with placing dropouts at a variety of individual layers as well as multiple layers. It was interesting to see the accuracy plummet in some scenarios. I ended up settling on only one dropout at layer 4. I also played with the dropout rate and settled at 50%. This seemed to have some effect but not much in the 40-60% range. Above or below that and the accuracy dropped. 
 
 I was able to set up my model to save the most accurate version as it went along so that I could let it run longer without worry if the model degraded, which they often do. I chose to save the highest validation accuracy as my chosen method. Another approach might be to choose the model with the lowest Vaslidation Loss once the accuracy is adequate. 
 
-You can see in the below graphs that over time the model appears to add in loss - I'm not sure if this is considered a form of overfitting or not but I think that the model does get worse. In the run featured here my final model saved at iteration 60 with a validation accuracy rate of 98.23%. However as will be discussed below, that was not as accurate as a previous run with only 30 iterations and 97% validationa ccuracy when it came to both test data sets and data sets downloaded from the internet. These graphs clearly show that around iteration 15 the training loss  begins to steady and the validation loss begins to vary wildly and seperates from the training loss. I suspect this would be the best place to save the model - approximately iteration 15 which you can see in the table has validation accuracy of 96.24%. 
+You can see in the below graphs that over time the model appears to add loss - I'm not sure if this is considered a form of overfitting or not but I think that the model does get worse. In the run featured here my final model saved at iteration 60 with a validation accuracy rate of 98.23%. However as will be discussed below, that was not as accurate as a previous run with only 30 iterations and 97% validationa ccuracy when it came to both test data sets and data sets downloaded from the internet. These graphs clearly show that around iteration 15 the training loss  begins to steady and the validation loss begins to vary wildly and seperates from the training loss. I suspect this would be the best place to save the model - approximately iteration 15 which you can see in the table has validation accuracy of 96.24%. 
 
 This model was 94.66% accurate against the test data set. 
 
@@ -177,6 +176,7 @@ I found 5 images on the internet and cropped close to square and then resized th
 
 My selected images before normalization:
 ![][image9]
+
 My selected images after normalization:
 ![][image8]
 
@@ -192,7 +192,7 @@ Running my images through the model resulted in 60% accuracy.
 Not great at all! Previous runs had accuracy of 80%. Interestingly the 100kph sign proved to fail every time. 
 
 ---
-### Softmax analyses
+### Softmax analysis
 
 	TopKV2(values=array([[  9.99935627e-01,   6.43333478e-05,   5.64296804e-11,
 	          4.41504811e-14,   2.86955891e-14],
@@ -222,7 +222,7 @@ Using the supplied code I was able to dump waht the model was "seeing" on my tes
 
 I wouldn't want this model driving my car!
 
-That aside there are lots of ways as pointed out above to improve on this model. 
+That aside there are lots of ways as pointed out above to improve on this model. I learned a lot about how tensorflow models work and have some good ideas on how to improve this model.
 
 
 
